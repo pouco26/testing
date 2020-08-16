@@ -31,7 +31,7 @@ def plugin_unloaded():
         elif events.pre_upgrade('testing'):
             print ('pre_upgrade testing')
     lhs = get_prefs()
-    lhs.clear_on_change('lh-prefs')
+    lhs.clear_on_change('testing-prefs')
     print ('plugin_unloaded')
 
 
