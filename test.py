@@ -30,6 +30,8 @@ def plugin_unloaded():
             print ('remove testing')
         elif events.pre_upgrade('testing'):
             print ('pre_upgrade testing')
+    lhs = get_prefs()
+    lhs.clear_on_change('lh-prefs')
     print ('plugin_unloaded')
 
 
