@@ -11,6 +11,7 @@ except Exception:
     package_control_installed = False
 
 
+
 def plugin_loaded():
     if package_control_installed:
         if events.install('testing') or events.post_upgrade('testing'):
