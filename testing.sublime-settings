@@ -1,0 +1,79 @@
+{
+
+	/*  Configuration  ____________________________________________
+	*/
+
+	// enable context menu
+	"context_menu": true,
+
+	// Auto Highlight for a log file, build window
+	"auto_highlight" : true,
+
+	// Output panel list for Auto Highlight
+	"auto_highlight_output_panel": ["exec"], // exec = build
+
+	/*  log list  _________________________________________________
+	*/
+
+	"log_list" : {
+
+		"example" : // specify name as yours
+		{
+			"type"         : "compile", // "compile" - link, bookmark (icon) are usable, "system" - only for highlight
+			"extension"    : [ "*.log", ".vcs.log", ".cpp.log", "message*" ],
+			"output.panel" : [ "exec" ], // exec - to apply to build results
+			"use_link"     : true,
+			"search_base": {
+				"enable"        : true, // false : when using absolute path
+				"ignore_dir"    : [""], // hidden folders are ignored as default, like .git, .svn
+				"max_scan_path" : 1000,
+			},
+			"bookmark" : {
+				"enable"     : true, // false : do not display icons too
+				"goto_error" : true, // automatically goto 1st error line
+			},
+			"severity" :
+			{
+				"error" : { // specify name as yours
+					"enable"  : true,
+					"pattern" : [ // [ "begin regex", "end regex" ] or [ "match regex", "" ]
+						// examples
+						[ "^Error-\\[", "^\\s*[\\n]" ],                      // Error-[ ~ next empty line (multi-line)
+						[ "^{{{LINK}}}?[^\\r\\n]*?(?i)error", "[\\r\\n]" ],  // a line including case-insensitive 'error' with or without a link in front of 'error'
+						[ "^\\w+:\\s*\\*E", "[\\r\\n]" ]                     // ...: *E ... (single line)
+						// <-- remove, change, add more patterns here -->
+					],
+					"color" : { // ["foreground", "background"]
+						"base"  : ["#F92672", ""], // error message
+						"link"  : ["#E6DB74", ""], // link in error message
+						"quote" : ["#4F99D3", ""], // quote in error message
+					},
+					"icon"  : "Danish Royalty/error.png", // remove "icon" not to use icon, "dot", "circle" "bookmark" are possible
+				},
+				"warning" : { // specify name as yours
+					"enable"  : true,
+					"pattern" : [
+						// examples
+						[ "^Warning-\\[", "^\\s*[\\n]" ],
+						[ "^{{{LINK}}}?[^\\r\\n]*?(?i)warning", "[\\r\\n]" ],
+						[ "^\\w+:\\s*\\*W", "[\\r\\n]" ]
+					],
+					"color" : {
+						"base"  : ["#A1B347", ""],
+						"link"  : ["#FD971F", ""],
+						"quote" : ["#4F99D3", ""],
+					},
+					"icon"  : "Danish Royalty/warning.png",
+				},
+			},
+			"theme": {
+				"foreground"      : "#D7D7D7",
+				"caret"           : "#F29718",
+				"selection"       : "#3A5166",
+				"selectionBorder" : "#181E26",
+				"lineHighlight"   : "#283240",
+			}
+		},
+		// <-- remove, change, add more log list here -->
+	},
+}
