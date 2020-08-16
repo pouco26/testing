@@ -13,11 +13,10 @@ except Exception:
 
 def plugin_loaded():
     if package_control_installed:
-        if events.install('testing'):
-            print ('install testing')
-        elif events.post_upgrade('testing'):
-            print ('post_upgrade testing')
+        if events.install('testing') or events.post_upgrade('testing'):
+            sublime.set_timeout_async(loaded, 1000)
 
+def loaded():
     get_log_extension()
     lhs = get_prefs()
     lhs.clear_on_change('testing-prefs')
