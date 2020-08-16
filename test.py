@@ -23,6 +23,7 @@ def plugin_loaded():
     lhs.add_on_change('testing-prefs', get_log_extension)
 
 
+
 def plugin_unloaded():
     if package_control_installed:
         if events.remove('testing'):
