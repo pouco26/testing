@@ -1,7 +1,32 @@
-import sublime
-import sublime_plugin
+# -*- coding: utf8 -*-
+# -----------------------------------------------------------------------------
+# Author : yongchan jeon (Kris) poucotm@gmail.com
+# File   : testing.py
+# Create : 2017-08-31 22:09:10
+# Editor : sublime text3, tab size (4)
+# -----------------------------------------------------------------------------
 
+print ('load testing')
 
+import sublime, sublime_plugin
+import sys, imp
+import traceback
+
+##  sub-modules  ______________________________________________
+
+try:
+    # reload
+    mods = ['testing.core.persist', 'testing.core.engine']
+    for mod in list(sys.modules):
+        if any(mod == m for m in mods):
+            imp.reload(sys.modules[mod])
+    # import
+    from .core import persist
+    from .core import engine
+    import_ok = True
+except Exception:
+    traceback.print_exc()
+    import_ok = False
 
 # package control
 try:
@@ -10,50 +35,27 @@ try:
 except Exception:
     package_control_installed = False
 
-
+##  plugin_loaded  ____________________________________________
 
 def plugin_loaded():
-    if package_control_installed:
-        if events.install('testing') or events.post_upgrade('testing'):
-            sublime.set_timeout_async(loaded, 1000)
 
-def loaded():
-    get_log_extension()
-    lhs = get_prefs()
-    lhs.clear_on_change('testing-prefs')
-    lhs.add_on_change('testing-prefs', get_log_extension)
+    # import
+    if not import_ok:
+        sublime.status_message("* TEST : Error")
+        return
+
+    if package_control_installed and (events.install('testing') or events.post_upgrade('testing')):
+        pass
+    else:
+        pass
 
 
+##  plugin_unloaded  __________________________________________
 
 def plugin_unloaded():
+
+    # engine stop
     if package_control_installed:
-        if events.remove('testing'):
-            print ('remove testing')
-        elif events.pre_upgrade('testing'):
-            print ('pre_upgrade testing')
-    lhs = get_prefs()
-    lhs.clear_on_change('testing-prefs')
-    print ('plugin_unloaded')
-
-
-def get_prefs():
-    return sublime.load_settings('testing.sublime-settings')
-
-def get_log_extension():
-    global EXT_ALL
-    global EXT_DIC
-    global OUT_DIC
-    EXT_ALL = []
-    EXT_DIC = {}
-    OUT_DIC = {}
-    lol = get_prefs().get('log_list')
-    lgl = list(lol.keys())
-    for ltype in lgl:
-        extl = lol.get(ltype).get('extension')
-        for ext in extl:
-            EXT_ALL.append(ext)
-            EXT_DIC[ext] = ltype
-        outl = lol.get(ltype).get('output.panel')
-        for out in outl:
-            OUT_DIC[out] = ltype
-    return
+        if events.remove('testing') or events.pre_upgrade('testing'):
+            pass
+    pass
