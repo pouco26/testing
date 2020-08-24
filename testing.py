@@ -17,10 +17,10 @@ import traceback
 try:
     print ('try testing')
     # reload
-    mods = ['testing.core.persist', 'testing.core.engine']
-    for mod in list(sys.modules):
-        if any(mod == m for m in mods):
-            imp.reload(sys.modules[mod])
+    # mods = ['testing.core.persist', 'testing.core.engine']
+    # for mod in list(sys.modules):
+    #     if any(mod == m for m in mods):
+    #         imp.reload(sys.modules[mod])
     # import
     from .core import persist
     from .core import engine
