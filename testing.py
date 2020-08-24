@@ -15,6 +15,7 @@ import traceback
 ##  sub-modules  ______________________________________________
 
 try:
+    print ('try testing')
     # reload
     mods = ['testing.core.persist', 'testing.core.engine']
     for mod in list(sys.modules):
@@ -45,9 +46,10 @@ def plugin_loaded():
         return
 
     if package_control_installed and (events.install('testing') or events.post_upgrade('testing')):
-        pass
+        print ('install/upgrade')
     else:
-        pass
+        print ('else install/upgrade')
+    print ('plugin_loaded')
 
 
 ##  plugin_unloaded  __________________________________________
@@ -57,5 +59,5 @@ def plugin_unloaded():
     # engine stop
     if package_control_installed:
         if events.remove('testing') or events.pre_upgrade('testing'):
-            pass
-    pass
+            print ('else remove/pre_upgrade')
+    print ('plugin_unloaded')
