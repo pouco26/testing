@@ -10,4 +10,4 @@ print ('load engine')
 
 from . import persist
 
-print(persist.GNS_TITLE_BAR_COLOR)
+print(persist.GNS_NEW)
